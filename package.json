@@ -4,9 +4,9 @@
   "description": "Ecommerce backend",
   "main": " server.ts",
   "scripts": {
-    "start": " node dist/server.js",
+    "start": "ts-node src/server.ts",
     "build": "tsc",
-    "serve": "node dist/server.ts",
+    "serve": "node src/server.ts",
     "dev": "nodemon src/server.ts"
   },
   "author": "Phanie Developer",
@@ -17,8 +17,9 @@
     "@types/node": "^24.3.1",
     "@types/nodemailer": "^7.0.1",
     "express": "^5.1.0",
+    "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -31,7 +32,6 @@
     "moment": "^2.30.1",
     "mongoose": "^8.18.1",
     "nodemailer": "^7.0.6",
-    "nodemon": "^3.1.10",
     "react-hook-form": "^7.62.0"
   }
 }
