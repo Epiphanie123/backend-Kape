@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import {User} from "../models/usermodel";
+import User from "../models/usermodel";
 const JWT_SECRET = process.env.JWT_SECRET ?? "";
 export const requireSignin = async (
   req: any,
