@@ -42,7 +42,7 @@ var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkAdmin = exports.requireSignin = void 0;
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var usermodel_1 = require("../models/usermodel");
+var usermodel_1 = __importDefault(require("../models/usermodel"));
 var JWT_SECRET = (_a = process.env.JWT_SECRET) !== null && _a !== void 0 ? _a : "";
 var requireSignin = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var token, verifytoken, rootuser, error_1;
@@ -53,7 +53,7 @@ var requireSignin = function (req, res, next) { return __awaiter(void 0, void 0,
                 if (!req.headers.authorization) return [3 /*break*/, 2];
                 token = req.headers.authorization;
                 verifytoken = jsonwebtoken_1.default.verify(token, JWT_SECRET);
-                return [4 /*yield*/, usermodel_1.User.findOne({
+                return [4 /*yield*/, usermodel_1.default.findOne({
                         _id: verifytoken._id,
                         "tokens.token": token,
                     })];

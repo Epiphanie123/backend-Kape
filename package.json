@@ -4,7 +4,7 @@
   "description": "Ecommerce backend",
   "main": " server.ts",
   "scripts": {
-    "start": "ts-node src/server.ts",
+    "start": "src/server.ts",
     "build": "tsc",
     "serve": "node dist/server.ts",
     "dev": "nodemon src/server.ts"
