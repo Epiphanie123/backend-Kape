@@ -4,10 +4,11 @@
   "description": "Ecommerce backend",
   "main": " server.ts",
   "scripts": {
-    "start": "ts-node src/server.ts",
-    "build": "tsc",
-    "serve": "node src/server.ts",
-    "dev": "nodemon src/server.ts"
+     "dev": "ts-node src/server.ts",
+  "build": "tsc",
+  "start": "node dist/server.js",
+    "serve": "node src/server.ts"
+    
   },
   "author": "Phanie Developer",
   "license": "ISC",
