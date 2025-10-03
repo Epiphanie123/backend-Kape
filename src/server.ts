@@ -1,26 +1,23 @@
-import express, { Application, Request, Response } from "express";
+import express, { Express, Request, Response } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 
 // Routers
 import userRoutes from "./router/userpath";
-// import indexRouting from "./router/indexRouting";
 import cardRoutes from "./router/cardRoutes";
-import orderRoutes from "./router/orderRouter"; // ✅ New order routes
-
-
-// Models
-import Product from "./models/product";
-import Cart from "./models/cart";
+import orderRoutes from "./router/orderRouter";
 import contactRouter from "./router/contactRouter";
 import otpRouter from "./router/OTPRouter";
 import cartRoutes from "./router/cartRouter";
+import productRouter from "./router/productrouter";
 
+// Swagger
+import { setupSwagger } from "./Swagger";
 
 dotenv.config();
 
-const app: Application = express();
+const app: Express = express();
 app.use(express.json());
 
 // ✅ Allow frontend requests
@@ -51,61 +48,29 @@ const connectDb = async () => {
 connectDb();
 
 // ---------- Routes ----------
-
 // User routes
 app.use("/api/users", userRoutes);
-// Index routes
-// app.use("/api", indexRouting);
 
 // Cart routes
 app.use("/api/cart", cartRoutes);
 
 // Order routes
 app.use("/api/orders", orderRoutes);
+
 // Contact routes
 app.use("/api/contact", contactRouter);
+
+// OTP routes
 app.use("/api/otp", otpRouter);
 
+// Product routes
+app.use("/api/products", productRouter);
 
-// ---------- Product ----------
-app.post("/api/product/create", async (req: Request, res: Response) => {
-  try {
-    const { name, description, category, price, image } = req.body;
-    const product = await Product.create({ name, description, category, price, image });
-    res.status(201).json({ message: "Product created", product });
-  } catch (err) {
-    res.status(500).json({ message: "Product creation error", error: err });
-  }
-});
+// Card routes
+app.use("/api/cards", cardRoutes);
 
-app.get("/api/product", async (_req: Request, res: Response) => {
-  try {
-    const products = await Product.find();
-    res.json(products);
-  } catch (err) {
-    res.status(500).json({ message: "Fetch products error", error: err });
-  }
-});
-
-// ---------- Cart ----------
-app.post("/api/cart/create", async (req: Request, res: Response) => {
-  try {
-    const { product, quantity } = req.body;
-    const cart = await Cart.create({ product, quantity });
-    res.status(201).json({ message: "Cart created", cart });
-  } catch (err) {
-    res.status(500).json({ message: "Cart creation error", error: err });
-  }
-});
-
-app.get("/api/cart", async (_req: Request, res: Response) => {
-  try {
-    const carts = await Cart.find();
-    res.json(carts);
-  } catch (err) {
-    res.status(500).json({ message: "Fetch cart error", error: err });
-  }
-});
+// ---------- Swagger ----------
+setupSwagger(app); // This will serve Swagger UI at /api-docs
 
 // ---------- Health Check ----------
 app.get("/", (_req: Request, res: Response) => {

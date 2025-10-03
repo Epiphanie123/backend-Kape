@@ -17,6 +17,8 @@ const ProductSchema: Schema<IProduct> = new Schema(
   { timestamps: true }
 );
 
-const Product: Model<IProduct> = mongoose.model<IProduct>("Product", ProductSchema);
+// ✅ Reuse model if it already exists
+const Product: Model<IProduct> =
+  mongoose.models.Product || mongoose.model<IProduct>("Product", ProductSchema);
 
 export default Product;
